@@ -47,6 +47,11 @@ class MediaBuilder implements BuilderInterface
             throw new \Exception('There is no folder specified for media fixture ' . $fixture->getName());
         }
 
+        if ($properties['folder'] instanceof Folder) {
+            $this->folder = $properties['folder'];
+            return;
+        }
+
         $this->folder = $this->em->getRepository('KunstmaanMediaBundle:Folder')->findOneBy(array('rel' => $properties['folder']));
 
         if (!$this->folder instanceof Folder) {
